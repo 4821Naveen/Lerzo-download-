@@ -14,12 +14,6 @@ ENV VITE_SUPABASE_PROJECT_ID=$VITE_SUPABASE_PROJECT_ID
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
-# Verify environment variables are set
-RUN if [ -z "$VITE_SUPABASE_URL" ] || [ -z "$VITE_SUPABASE_PUBLISHABLE_KEY" ]; then \
-    echo "ERROR: VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY must be set as Build Arguments"; \
-    exit 1; \
-    fi
-
 COPY . .
 RUN npm run build
 
