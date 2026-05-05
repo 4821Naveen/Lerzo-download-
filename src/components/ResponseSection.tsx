@@ -1,7 +1,7 @@
 const responses = [
-  { value: '10+', unit: 'HOURS', label: 'Saved per week', sublabel: 'on admin tasks' },
-  { value: '2X', unit: 'FASTER', label: 'Get paid', sublabel: 'with automation' },
-  { value: '100%', unit: 'SECURE', label: 'Data security', sublabel: 'for your business' },
+  { value: '10+', unit: 'HOURS', label: 'Saved per week', sublabel: 'on admin & tracking' },
+  { value: '2X', unit: 'FASTER', label: 'Payments & Fees', sublabel: 'with automation' },
+  { value: '100%', unit: 'SECURE', label: 'Data security', sublabel: 'for business & students' },
 ];
 
 export const ResponseSection = () => {
