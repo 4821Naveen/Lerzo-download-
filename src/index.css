@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 272 81% 43%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 272 81% 55%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 272 81% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 272 81% 43%;
+
+    --radius: 1rem;
+
+    /* Custom Design Tokens - Purple gradient */
+    --gradient-primary: linear-gradient(135deg, hsl(272 81% 43%), hsl(272 81% 60%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 3%) 0%, hsl(0 0% 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 8% / 0.9), hsl(0 0% 5% / 0.95));
+    --gradient-glow: radial-gradient(circle at center, hsl(272 81% 43% / 0.2), transparent 70%);
+    --gradient-accent: linear-gradient(90deg, hsl(272 81% 43%), hsl(272 81% 60%));
+    
+    --shadow-glow: 0 0 80px hsl(272 81% 43% / 0.3);
+    --shadow-glow-purple: 0 0 80px hsl(272 81% 50% / 0.25);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.5);
+
+    --glass-bg: hsl(0 0% 8% / 0.7);
+    --glass-border: hsl(0 0% 20% / 0.5);
+    --glass-blur: blur(20px);
+
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .card-gradient {
+    background: var(--gradient-card);
+    border: 1px solid var(--glass-border);
+  }
+
+  .glow-dot {
+    @apply w-2 h-2 rounded-full;
+    background: hsl(120 100% 50%);
+    box-shadow: 0 0 10px hsl(120 100% 50% / 0.8);
+  }
+
+  .section-padding {
+    @apply px-6 py-24 md:px-12 lg:px-24 lg:py-32;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Arrow button like reference */
+  .arrow-btn {
+    @apply relative inline-flex items-center gap-3 pl-6 pr-4 py-3 rounded-full font-display font-semibold text-sm uppercase tracking-wider;
+    background: hsl(0 0% 10%);
+    border: 1px solid hsl(0 0% 20%);
+    transition: var(--transition-smooth);
+  }
+
+  .arrow-btn:hover {
+    background: hsl(0 0% 15%);
+    border-color: hsl(0 0% 30%);
+  }
+
+  .arrow-btn .arrow-circle {
+    @apply w-8 h-8 rounded-full flex items-center justify-center;
+    background: var(--gradient-primary);
+  }
+
+  .arrow-btn:hover .arrow-circle {
+    transform: translateX(4px);
+  }
+
+  .arrow-btn .arrow-circle svg {
+    @apply w-4 h-4 text-black;
+    transition: transform 0.3s ease;
+  }
+
+  .arrow-btn:hover .arrow-circle svg {
+    transform: translateX(2px);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee 25s linear infinite reverse;
+  }
+
+  .animate-noise {
+    animation: noise 0.5s steps(10) infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes noise {
+    0%, 100% { background-position: 0 0; }
+    10% { background-position: -5% -10%; }
+    20% { background-position: -15% 5%; }
+    30% { background-position: 7% -25%; }
+    40% { background-position: 20% 25%; }
+    50% { background-position: -25% 10%; }
+    60% { background-position: 15% 5%; }
+    70% { background-position: 0% 15%; }
+    80% { background-position: 25% 35%; }
+    90% { background-position: -10% 10%; }
+  }
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(0 0% 3%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 20%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 30%);
+}
+
+/* Selection */
+::selection {
+  background: hsl(272 81% 43% / 0.3);
+  color: hsl(0 0% 98%);
+}
