@@ -6,6 +6,7 @@ import { MethodologySection } from "@/components/MethodologySection";
 import { CapabilitiesSection } from "@/components/CapabilitiesSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
+import { PricingSection } from "@/components/PricingSection";
 import { Footer } from "@/components/Footer";
 
 export default function Index() {
@@ -85,6 +86,7 @@ export default function Index() {
         <MethodologySection />
         <CapabilitiesSection />
         <ServicesSection />
+        <PricingSection />
         
         {/* FAQ Section */}
         <section className="py-24 bg-background relative overflow-hidden">

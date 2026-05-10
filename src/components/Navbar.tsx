@@ -5,7 +5,7 @@ import lerzoLogo from '@/assets/lezo-logo.png';
 const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'Features', href: '#services' },
-  { name: 'Users', href: '#users' },
+  { name: 'Pricing', href: '#pricing' },
   { name: 'Contact', href: '#contact' },
 ];
 

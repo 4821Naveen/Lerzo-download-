@@ -19,22 +19,45 @@ export const ContactSection = () => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+      const response = await fetch(`${apiBaseUrl}/api/leads/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: formData.name,
+          email: formData.email,
+          company_name: formData.company,
+          phone: formData.phone,
+          started_date: formData.pickupDate,
+          message: formData.message,
+        }),
       });
 
-      if (error) throw error;
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to submit lead');
+      }
 
       toast({
-        title: "Request Submitted!",
-        description: "We'll contact you within 24 hours to confirm your pickup.",
+        title: "Success!",
+        description: "Your inquiry has been sent. Redirecting you to the free trial registration...",
       });
+      
+      // Clear form and redirect to main app's register page
       setFormData({ name: '', email: '', company: '', phone: '', pickupDate: '', message: '' });
+      setTimeout(() => {
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+        window.location.href = `${apiBaseUrl}/register`;
+      }, 2000);
+
     } catch (error: any) {
       console.error('Error submitting form:', error);
       toast({
         title: "Error",
-        description: "Failed to submit request. Please try again.",
+        description: error.message || "Failed to connect to the server. Please try again later.",
         variant: "destructive",
       });
     } finally {
@@ -55,7 +78,7 @@ export const ContactSection = () => {
           {/* Left - Info */}
           <div className="gsap-slide-right">
             <span className="text-sm text-muted-foreground uppercase tracking-widest font-medium mb-4 block">
-              Login for Free Trial
+              Join Lerzo Today
             </span>
             <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl mb-6 leading-[0.95]">
               <span className="text-foreground">SIMPLIFY</span>
@@ -187,7 +210,7 @@ export const ContactSection = () => {
                   </>
                 ) : (
                   <>
-                    Login for Free Trial
+                    Register for Free Trial
                     <ArrowRight className="w-5 h-5" />
                   </>
                 )}
