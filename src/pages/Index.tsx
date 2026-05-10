@@ -26,7 +26,7 @@ export default function Index() {
 
         {/* Canonical */}
         <link rel="canonical" href="https://lerzo.com/" />
-        <link rel="icon" type="image/png" href="/logo.png" />
+        <link rel="icon" type="image/png" href="/lezo-logo.png" />
 
         {/* Open Graph */}
         <meta property="og:title" content="Lerzo – All-in-One Business & Student Management" />

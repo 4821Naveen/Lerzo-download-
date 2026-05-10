@@ -1,7 +1,9 @@
 import { Check } from 'lucide-react';
 
+import { useQuery } from '@tanstack/react-query';
+
 export const PricingSection = () => {
-  const plans = [
+  const defaultPlans = [
     {
       name: "Free Trial",
       price: "₹0",
@@ -54,6 +56,29 @@ export const PricingSection = () => {
       highlighted: false
     }
   ];
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['subscription-plans'],
+    queryFn: async () => {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+      const response = await fetch(`${baseUrl}/api/subscription/plans`);
+      const result = await response.json();
+      if (!result.success) throw new Error(result.error);
+      
+      return result.plans.map((p: any) => ({
+        name: p.name,
+        price: `₹${p.price}`,
+        duration: p.price === 0 ? `${p.duration_days} Days` : `Per ${p.duration_days} Days`,
+        description: p.description || "Manage your centre with ease.",
+        features: p.features && p.features.length > 0 ? p.features : defaultPlans[0].features,
+        cta: p.price === 0 ? "Start Free Trial" : "Get Started",
+        link: "https://app.lerzo.com/auth/login",
+        highlighted: p.price > 0 && p.price < 1000 // Simple logic for highlighting
+      }));
+    }
+  });
+
+  const plans = data && data.length > 0 ? data : (isLoading ? [] : defaultPlans);
 
   return (
     <section id="pricing" className="py-24 bg-card/30 relative overflow-hidden">
